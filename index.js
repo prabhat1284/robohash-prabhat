@@ -4,11 +4,24 @@ const fs = require('fs')
 ////////////////////////////////////////3.Async Await/////////////////////////////////////////////////////
 async function getRoboPic(){
     try {
-        random = await roboHashPromise();
-        console.log(`string ${data}`)
-        response = await superagent.get(`https://robohash.org/${random}`)
-        console.log(response.request.url)
-        writeFilePromise("./robotImage.txt",response.request.url)
+        ran = []
+        i=0
+        while(i<3){
+            random = await roboHashPromise();
+            ran.push(random)
+            i++
+        }
+        response1 = await superagent.get(`https://robohash.org/${ran[0]}`)
+        console.log(response1.request.url)
+        response2 = await superagent.get(`https://robohash.org/${ran[1]}`)
+        console.log(response2.request.url)
+        response3 = await superagent.get(`https://robohash.org/${ran[2]}`)
+        console.log(response3.request.url)
+        const all = await Promise.all([response1,response2,response3])
+        // console.log(all)
+        const images = all.map((el)=> {return el.request.url});
+        console.log(images)
+        writeFilePromise("./robotImage.txt",images.join("\n"))
         console.log('successfully written')
     } catch (err) {
         console.log(err)
