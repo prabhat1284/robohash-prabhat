@@ -1,7 +1,27 @@
 const superagent = require('superagent')
 const fs = require('fs')
 
-2.
+////////////////////////////////////////3.Async Await/////////////////////////////////////////////////////
+async function getRoboPic(){
+    try {
+        random = await roboHashPromise();
+        console.log(`string ${data}`)
+        response = await superagent.get(`https://robohash.org/${random}`)
+        console.log(response.request.url)
+        writeFilePromise("./robotImage.txt",response.request.url)
+        console.log('successfully written')
+    } catch (err) {
+        console.log(err)
+    }
+}
+getRoboPic()
+
+
+
+
+
+
+////////////////////////////////////////2.Using Promises///////////////////////////////////////////////////
 function roboHashPromise(){
     data = Math.random().toString(36).substring(2,7); 
     return new Promise((resolve,reject) => {
@@ -20,22 +40,26 @@ function writeFilePromise(filelocation,data) {
     })
 }
 //Promise Chaining
-roboHashPromise().then((data)=>{
-    console.log(`random string ${data}`)
-    return superagent.get(`https://robohash.org/${data}`)
-})
-.then((res)=>{
-    console.log(res.request.url)
-    return writeFilePromise("./robotImage.txt",res.request.url)
-})
-.then(()=>{
-    console.log('successfully written')
-})
-.catch((err)=>{
-    console.log(err)
-})
+// roboHashPromise().then((data)=>{
+//     console.log(`random string ${data}`)
+//     return superagent.get(`https://robohash.org/${data}`)
+// })
+// .then((res)=>{
+//     console.log(res.request.url)
+//     return writeFilePromise("./robotImage.txt",res.request.url)
+// })
+// .then(()=>{
+//     console.log('successfully written')
+// })
+// .catch((err)=>{
+//     console.log(err)
+// })
 
-//1.Using Callback
+
+
+
+
+//////////////////////////////////////////1.Using Callback/////////////////////////////////////////////
 // const roboHash=(err,data=>{})=>{
 //     data = Math.random().toString(36).substring(2,7);
 //     superagent
